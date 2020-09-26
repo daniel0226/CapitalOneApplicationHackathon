@@ -1,4 +1,4 @@
-interface Merchant {
+export interface Merchant {
     _id: string;
     name: string;
     category: string[];
@@ -6,11 +6,11 @@ interface Merchant {
     address: Address;
 }
 
-interface Geocode {
+export interface Geocode {
     lat: number;
     lng: number;
 }
-interface Address {
+export interface Address {
     street_number: string;
 }
 
