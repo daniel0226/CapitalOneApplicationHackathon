@@ -1,0 +1,17 @@
+service: serverless-capital-one-app
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+functions:
+  captialOneApplication:
+    handler: index.handler
+    name: serverless-capital-one-app
+    events:
+      - http:
+          path: daily/total
+          method: get
+      - http:
+          path: daily/top/transactions
+          method: get

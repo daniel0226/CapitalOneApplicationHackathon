@@ -1,0 +1,23 @@
+{
+  "name": "aws-serverless-lambda-typescript-lambda-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && serverless invoke local --function quarantineApplication --path event.json",
+    "deploy": "tsc && serverless deploy",
+    "deploy-function": "tsc && serverless deploy function --function quarantineApplication",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.61",
+    "@types/node": "^14.0.22",
+    "aws-sdk": "^2.747.0"
+  },
+  "dependencies": {
+    "axios": "^0.20.0",
+    "selectn": "^1.1.2"
+  }
+}
