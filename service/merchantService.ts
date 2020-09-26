@@ -8,7 +8,7 @@ export const getMerchants = async (): Promise<Merchant[]> => {
     try{
         const response = await axios.get(url);
         const data = response.data;
-        console.log(JSON.stringify(data));
+        //console.log(JSON.stringify(data));
         return data;
     }catch(error)
     {

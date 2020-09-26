@@ -4,9 +4,10 @@ AWS.config.apiVersions = {
     dynamodb: '2012-08-10'
 };
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
-import {getDailyTopPurchasesForPastWeek, getPurchasesSortedHighToLow} from "./service/purchaseService";
+import {getDailyTopPurchasesForPastWeek, getPurchasesSortedHighToLow, getPurchasesSum} from "./service/purchaseService";
 import {generatePurchases} from "./service/generatePurchasesService";
-import {getMerchants} from './service/merchantService';
+import {getMerchants, getMerchantCategoryDictionary} from './service/merchantService';
+import {getPricePercentages} from './service/categoryService';
 
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     const response: APIGatewayProxyResult = {
@@ -46,6 +47,13 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
                 statusCode: 200,
                 body: JSON.stringify(getAllMerchants)
             };
+        }
+
+        if(event.path === '/test')
+        {
+            const testFunction = await getPricePercentages("5f6ea470f1bac107157e1199");
+            console.log(`Result from test`);
+            console.log(testFunction);
         }
     }
 

@@ -1,6 +1,6 @@
 const urlBuilder = require('url');
 import axios from 'axios';
-
+import {Purchases} from "./global.type";
 const arraySort = require('array-sort');
 
 export const getDailyTopPurchasesForPastWeek = async (accountId: string) => {
@@ -69,7 +69,7 @@ export const getPurchases = async (accountId: string) => {
     try {
         const response = await axios.get(url);
         const data = response.data;
-        console.log(JSON.stringify(data));
+        //console.log(JSON.stringify(data));
         return data;
     } catch (error) {
         console.error(`There was an error attempting to get purchases from accountId: ${accountId}`, error);
@@ -86,4 +86,16 @@ export const getUrl = (pathname: string) => {
             key: '9c1ac5d3dab026944436f0acda93c966'
         }
     });
+};
+
+export const getPurchasesSum = (purchases : Purchases[]) : number => 
+{
+    let sum = 0;
+
+    for(var i = 0; i<purchases.length; i++)
+    {
+        sum += purchases[i].amount;
+    }
+
+    return sum;
 };
