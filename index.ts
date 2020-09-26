@@ -5,6 +5,7 @@ AWS.config.apiVersions = {
 };
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
 import {getDailyTopPurchasesForPastWeek, getPurchasesSortedHighToLow} from "./service/purchaseService";
+import {generatePurchases} from "./service/generatePurchasesService";
 
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     const response: APIGatewayProxyResult = {
@@ -20,7 +21,9 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
     }
 
     if (event.httpMethod === 'PUT') {
-
+        if (event.pathParameters != null) {
+            await generatePurchases(event.pathParameters.accountId);
+        }
     }
 
     if (event.httpMethod === 'GET') {

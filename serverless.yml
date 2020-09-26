@@ -8,10 +8,8 @@ functions:
   captialOneApplication:
     handler: index.handler
     name: serverless-capital-one-app
+    timeout: 120
     events:
-      - http:
-          path: daily/total
-          method: get
       - http: # Daily Top for 1 week
           path: purchases/{accountId}/daily/top
           method: get
@@ -22,6 +20,13 @@ functions:
       - http:
           path: getPurchases/{accountId}
           method: get
+          request:
+            parameters:
+              paths:
+                accountId: true
+      - http: # Generate Purchases
+          path: purchases/{accountId}/generate
+          method: put
           request:
             parameters:
               paths:
