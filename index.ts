@@ -8,7 +8,7 @@ import {getDailyTopPurchasesForPastWeek, getPurchasesSortedHighToLow, getPurchas
 import {generatePurchases} from "./service/generatePurchasesService";
 import {getMerchants, getMerchantCategoryDictionary} from './service/merchantService';
 import {getPricePercentages} from './service/categoryService';
-import { generateDepositsByID, GetAllDepositsByID } from './service/depositService';
+import { generateDepositsByID,  GetSumDepositsByID} from './service/depositService';
 
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     const response: APIGatewayProxyResult = {
@@ -60,7 +60,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
         if(event.path === '/test')
         {
-            const testFunction = await GetAllDepositsByID("5f6ea470f1bac107157e1199");
+            const testFunction = await GetSumDepositsByID("5f6ea470f1bac107157e1199");
             console.log(`Result from test`);
             console.log(testFunction);
         }

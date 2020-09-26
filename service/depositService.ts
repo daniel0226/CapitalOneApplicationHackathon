@@ -43,3 +43,16 @@ export const GetAllDepositsByID = async (accountId:string) => {
         throw error;
     }
 };
+
+export const GetSumDepositsByID = async (accountId:string) : Promise<number> => {
+    const Deposits = await GetAllDepositsByID(accountId);
+
+    let sum = 0.0;
+
+    for(var i = 0; i < Deposits.length; i++)
+    {
+        sum += parseFloat(Deposits[i].amount);
+    }
+
+    return sum;
+}
