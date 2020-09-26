@@ -6,6 +6,7 @@ AWS.config.apiVersions = {
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
 import {getDailyTopPurchasesForPastWeek, getPurchasesSortedHighToLow} from "./service/purchaseService";
 import {generatePurchases} from "./service/generatePurchasesService";
+import {getMerchants} from './service/merchantService';
 
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     const response: APIGatewayProxyResult = {
@@ -35,6 +36,15 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
             return {
                 statusCode: 200,
                 body: JSON.stringify(sortedPurchases)
+            };
+        }
+        if(event.path === '/merchants' && event.pathParameters != null)
+        {
+            const getAllMerchants = await getMerchants();
+            console.log(`Result from GetAllMerchants: ${JSON.stringify(getAllMerchants)}`);
+            return {
+                statusCode: 200,
+                body: JSON.stringify(getAllMerchants)
             };
         }
     }

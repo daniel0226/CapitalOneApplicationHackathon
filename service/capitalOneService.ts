@@ -1,19 +1,7 @@
 const urlBuilder = require('url');
 import axios from 'axios';
+import {getPurchases} from './purchaseService';
 const arraySort = require('array-sort');
-
-export const getPurchases = async (accountId: string) => {
-    const url = getUrl(`/accounts/${accountId}/purchases`);
-    try {
-        const response = await axios.get(url);
-        const data = response.data;
-        console.log(JSON.stringify(data));
-        return data;
-    } catch (error) {
-        console.error(`There was an error attempting to get purchases from accountId: ${accountId}`, error);
-        throw error;
-    }
-};
 
 export const getUrl = (pathname: string) => {
     return urlBuilder.format({
@@ -25,3 +13,4 @@ export const getUrl = (pathname: string) => {
         }
     });
 };
+

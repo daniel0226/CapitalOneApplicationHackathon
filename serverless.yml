@@ -31,3 +31,6 @@ functions:
             parameters:
               paths:
                 accountId: true
+      - http: # Get Merchants
+          path: merchants
+          method: get
