@@ -4,10 +4,6 @@ AWS.config.apiVersions = {
     dynamodb: '2012-08-10'
 };
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
-import {authUser} from "./service/authService";
-import {registerUser} from "./service/registerService";
-import {setupGeofence} from "./service/geofenceService";
-import {getQuarantineTime, getViolators} from "./service/dynamoService";
 
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     const response: APIGatewayProxyResult = {
