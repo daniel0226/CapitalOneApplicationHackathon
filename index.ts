@@ -15,7 +15,6 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
         statusCode: 200,
         body: 'Hello World Panda'
     };
-
     console.log('BELOW IS THE EVENT');
     console.log(JSON.stringify(event));
 
