@@ -17,6 +17,7 @@
     "aws-sdk": "^2.747.0"
   },
   "dependencies": {
+    "array-sort": "^1.0.0",
     "axios": "^0.20.0",
     "selectn": "^1.1.2",
     "url": "^0.11.0"

@@ -13,8 +13,12 @@ functions:
           path: daily/total
           method: get
       - http:
-          path: daily/top/transactions
+          path: purchases/{accountId}/daily/top
           method: get
+          request:
+            parameters:
+              paths:
+                accountId: true
       - http:
           path: getPurchases/{accountId}
           method: get
