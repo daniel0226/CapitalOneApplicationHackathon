@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && serverless invoke local --function quarantineApplication --path event.json",
+    "start": "tsc && serverless invoke local --function captialOneApplication --path event.json",
     "deploy": "tsc && serverless deploy",
-    "deploy-function": "tsc && serverless deploy function --function quarantineApplication",
+    "deploy-function": "tsc && serverless deploy function --function captialOneApplication",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "axios": "^0.20.0",
-    "selectn": "^1.1.2"
+    "selectn": "^1.1.2",
+    "url": "^0.11.0"
   }
 }

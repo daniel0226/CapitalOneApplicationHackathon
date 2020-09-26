@@ -4,6 +4,7 @@ AWS.config.apiVersions = {
     dynamodb: '2012-08-10'
 };
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
+import {getPurchases} from "./service/capitalOneService";
 
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     const response: APIGatewayProxyResult = {
@@ -29,8 +30,13 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
         }
 
-        if (event.path === '/path') {
-
+        if (event.path.includes('/getPurchases') && event.pathParameters != null) {
+            const purchases = await getPurchases(event.pathParameters.accountId);
+            console.log(`Result from getPurchases with ${JSON.stringify(purchases)}`);
+            return {
+                statusCode: 200,
+                body: JSON.stringify(purchases)
+            }
         }
     }
 
