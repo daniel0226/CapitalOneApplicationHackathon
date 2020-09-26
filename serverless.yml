@@ -12,7 +12,7 @@ functions:
       - http:
           path: daily/total
           method: get
-      - http:
+      - http: # Daily Top for 1 week
           path: purchases/{accountId}/daily/top
           method: get
           request:

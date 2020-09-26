@@ -2,25 +2,6 @@ const urlBuilder = require('url');
 import axios from 'axios';
 const arraySort = require('array-sort');
 
-export const getTopThreePurchasesToday = async (accountId: string) => {
-    const sortedPurchases = await getPurchasesSortedHighToLowToday(accountId);
-    return sortedPurchases.slice(0,3);
-}
-
-export const getPurchasesSortedHighToLowToday = async (accountId: string) => {
-    const purchases = await getPurchases(accountId);
-    const date = new Date();
-    const formattedDate = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
-    const purchasesMadeToday = [];
-    for (const purchase of purchases) {
-        if (purchase.purchase_date === formattedDate) {
-            purchasesMadeToday.push(purchase);
-        }
-    }
-
-    return arraySort(purchases, 'amount', {reverse:true});
-};
-
 export const getPurchases = async (accountId: string) => {
     const url = getUrl(`/accounts/${accountId}/purchases`);
     try {

@@ -4,7 +4,7 @@ AWS.config.apiVersions = {
     dynamodb: '2012-08-10'
 };
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
-import {getPurchases, getPurchasesSortedHighToLowToday, getTopThreePurchasesToday} from "./service/capitalOneService";
+import {getDailyTopPurchasesForPastWeek, getPurchasesSortedHighToLow} from "./service/purchaseService";
 
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     const response: APIGatewayProxyResult = {
@@ -27,21 +27,12 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
         console.log('GET Method is called');
 
         if (event.resource === '/purchases/{accountId}/daily/top' && event.pathParameters != null) {
-            const sortedPurchases = await getTopThreePurchasesToday(event.pathParameters.accountId);
+            const sortedPurchases = await getDailyTopPurchasesForPastWeek(event.pathParameters.accountId);
             console.log(`Result from getTopThreePurchasesToday with ${JSON.stringify(sortedPurchases)}`);
             return {
                 statusCode: 200,
                 body: JSON.stringify(sortedPurchases)
             };
-        }
-
-        if (event.path.includes('/getPurchases') && event.pathParameters != null) {
-            const purchases = await getPurchasesSortedHighToLowToday(event.pathParameters.accountId);
-            console.log(`Result from getPurchases with ${JSON.stringify(purchases)}`);
-            return {
-                statusCode: 200,
-                body: JSON.stringify(purchases)
-            }
         }
     }
 
