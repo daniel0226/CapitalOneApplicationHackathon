@@ -28,7 +28,16 @@ export const getPricePercentages = async (accountId: string) : Promise<Map<objec
             currentValue += parseFloat(PricePercentages.get(category));
         }
 
-        PricePercentages.set(category, (currentValue/sum));
+        PricePercentages.set(category, (currentValue));
+    }
+
+    let keys = Array.from(PricePercentages.keys());
+
+    for(var i = 0; i<keys.length; i++)
+    {
+        let value = PricePercentages.get(keys[i]);
+
+        PricePercentages.set(keys[i], value / sum);
     }
 
     return PricePercentages;
