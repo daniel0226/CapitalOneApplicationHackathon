@@ -38,7 +38,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
                 body: JSON.stringify(sortedPurchases)
             };
         }
-        if(event.path === '/merchants' && event.pathParameters != null)
+        if(event.path === '/merchants')
         {
             const getAllMerchants = await getMerchants();
             console.log(`Result from GetAllMerchants: ${JSON.stringify(getAllMerchants)}`);
