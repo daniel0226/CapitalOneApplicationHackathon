@@ -8,6 +8,7 @@ import {getDailyTopPurchasesForPastWeek, getPurchasesSortedHighToLow, getPurchas
 import {generatePurchases} from "./service/generatePurchasesService";
 import {getMerchants, getMerchantCategoryDictionary} from './service/merchantService';
 import {getPricePercentages} from './service/categoryService';
+import { generateDepositsByID, GetAllDepositsByID } from './service/depositService';
 
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     const response: APIGatewayProxyResult = {
@@ -19,12 +20,20 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
     console.log(JSON.stringify(event));
 
     if (event.httpMethod === 'POST') {
-
+            if(event.resource === '/deposits/{accountId}/generate' && event.pathParameters != null)
+            {
+                const createDeposits = await generateDepositsByID(event.pathParameters.accountId);
+                console.log(createDeposits);
+                return {
+                    statusCode: 200,
+                    body: JSON.stringify(createDeposits)
+                };
+            }
     }
 
     if (event.httpMethod === 'PUT') {
         if (event.pathParameters != null) {
-            await generatePurchases(event.pathParameters.accountId);
+            //await generatePurchases(event.pathParameters.accountId);
         }
     }
 
@@ -51,7 +60,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
         if(event.path === '/test')
         {
-            const testFunction = await getPricePercentages("5f6ea470f1bac107157e1199");
+            const testFunction = await GetAllDepositsByID("5f6ea470f1bac107157e1199");
             console.log(`Result from test`);
             console.log(testFunction);
         }

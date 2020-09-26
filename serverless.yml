@@ -34,3 +34,10 @@ functions:
       - http: # Get Merchants
           path: merchants
           method: get
+      - http:
+          path: deposits/{accountId}/generate
+          method: post
+          request:
+            parameters:
+              paths:
+                accountId: true

@@ -8,6 +8,7 @@ export const getPricePercentages = async (accountId: string) : Promise<Map<objec
     const Purchases = await getPurchases(accountId);
     const Merchants = await getMerchantCategoryDictionary();
     let sum = getPurchasesSum(Purchases);
+    const PricesSumByCategory = new Map();
     const PricePercentages = new Map();
 
     for(var i = 0; i < Purchases.length; i++)
@@ -23,21 +24,14 @@ export const getPricePercentages = async (accountId: string) : Promise<Map<objec
             category = category[0];
         }
 
-        if(PricePercentages.has(category))
+        if(PricesSumByCategory.has(category))
         {
-            currentValue += parseFloat(PricePercentages.get(category));
+            currentValue += parseFloat(PricesSumByCategory.get(category));
         }
 
-        PricePercentages.set(category, (currentValue));
-    }
+        PricesSumByCategory.set(category, currentValue);
 
-    let keys = Array.from(PricePercentages.keys());
-
-    for(var i = 0; i<keys.length; i++)
-    {
-        let value = PricePercentages.get(keys[i]);
-
-        PricePercentages.set(keys[i], value / sum);
+        PricePercentages.set(category, parseFloat(PricesSumByCategory.get(category)) / sum);
     }
 
     return PricePercentages;
