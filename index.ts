@@ -1,5 +1,10 @@
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
-import {getDailyTopPurchasesForPastWeek, getPurchasesSortedHighToLow, getPurchasesSum} from "./service/purchaseService";
+import {
+    getDailyTopPurchasesForPastWeek,
+    getPurchases,
+    getPurchasesSortedHighToLow,
+    getPurchasesSum
+} from "./service/purchaseService";
 import {generatePurchases} from "./service/generatePurchasesService";
 import {getMerchants, getMerchantCategoryDictionary} from './service/merchantService';
 import {getPricePercentages} from './service/categoryService';
@@ -57,6 +62,18 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
             return {
                 statusCode: 200,
                 body: JSON.stringify(getAllMerchants),
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials': true,
+                },
+            };
+        }
+
+        if (event.resource === 'purchases/{accountId}' && event.pathParameters != null) {
+            const purchases = await getPurchases(event.pathParameters.accountId);
+            return {
+                statusCode: 200,
+                body: JSON.stringify(purchases),
                 headers: {
                     'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Credentials': true,

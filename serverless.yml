@@ -19,7 +19,7 @@ functions:
               paths:
                 accountId: true
       - http:
-          path: getPurchases/{accountId}
+          path: purchases/{accountId}
           method: get
           cors: true
           request:
