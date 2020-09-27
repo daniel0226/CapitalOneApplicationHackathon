@@ -1,8 +1,3 @@
-import * as AWS from 'aws-sdk';
-
-AWS.config.apiVersions = {
-    dynamodb: '2012-08-10'
-};
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
 import {getDailyTopPurchasesForPastWeek, getPurchasesSortedHighToLow, getPurchasesSum} from "./service/purchaseService";
 import {generatePurchases} from "./service/generatePurchasesService";
@@ -25,7 +20,11 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
                 console.log(createDeposits);
                 return {
                     statusCode: 200,
-                    body: JSON.stringify(createDeposits)
+                    body: JSON.stringify(createDeposits),
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Credentials': true,
+                    },
                 };
             }
     }
@@ -44,7 +43,11 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
             console.log(`Result from getTopThreePurchasesToday with ${JSON.stringify(sortedPurchases)}`);
             return {
                 statusCode: 200,
-                body: JSON.stringify(sortedPurchases)
+                body: JSON.stringify(sortedPurchases),
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials': true,
+                },
             };
         }
         if(event.path === '/merchants')
@@ -53,7 +56,11 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
             console.log(`Result from GetAllMerchants: ${JSON.stringify(getAllMerchants)}`);
             return {
                 statusCode: 200,
-                body: JSON.stringify(getAllMerchants)
+                body: JSON.stringify(getAllMerchants),
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials': true,
+                },
             };
         }
 
