@@ -69,7 +69,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
             };
         }
 
-        if (event.resource === 'purchases/{accountId}' && event.pathParameters != null) {
+        if (event.resource === '/purchases/{accountId}' && event.pathParameters != null) {
             const purchases = await getPurchases(event.pathParameters.accountId);
             return {
                 statusCode: 200,
